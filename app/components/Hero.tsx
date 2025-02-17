@@ -109,8 +109,8 @@ export default function Hero() {
                     priority
                   />
                   <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_0812.jpg-jQSxWaycmtpBR7IUnsPV8C8L3vlrQ2.jpeg"
-                    alt="Usman Zafar"
+                    src="https://media.licdn.com/dms/image/v2/D4E03AQHYyND9GWSfvQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1719946957839?e=1745452800&v=beta&t=LPvj1tj5rVTJNDWcyrsaqkfoCpQRPHgDZ9SxJdLDlT0"
+                    alt="Junnior Santiago Ravelo Velasco"
                     fill
                     className="object-cover"
                     priority
