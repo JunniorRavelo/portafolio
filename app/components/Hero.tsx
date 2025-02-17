@@ -46,10 +46,10 @@ export default function Hero() {
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
-              Usman Zafar
+              J. Santiago Ravelo
             </h1>
             <h2 className="text-2xl md:text-3xl font-semibold mb-6 text-gray-700 dark:text-gray-300">
-              Desarrollador MERN Stack
+              Ingeniero DevOps Full Stack
             </h2>
             <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto lg:mx-0">
               Creando experiencias digitales excepcionales con tecnologías web modernas. Especializado en construir
@@ -57,21 +57,21 @@ export default function Hero() {
             </p>
             <div className="flex justify-center lg:justify-start space-x-4 mb-8">
               <a
-                href="#"
+                href="https://github.com/JunniorRavelo"
                 className="p-3 rounded-full bg-white/80 hover:bg-white dark:bg-gray-800/80 dark:hover:bg-gray-800 transition-colors duration-300 shadow-lg hover:shadow-xl"
                 aria-label="Perfil de GitHub"
               >
                 <GitHub className="w-6 h-6 text-gray-700 dark:text-gray-300" />
               </a>
               <a
-                href="#"
+                href="https://www.linkedin.com/in/jsravelo/"
                 className="p-3 rounded-full bg-white/80 hover:bg-white dark:bg-gray-800/80 dark:hover:bg-gray-800 transition-colors duration-300 shadow-lg hover:shadow-xl"
                 aria-label="Perfil de LinkedIn"
               >
                 <Linkedin className="w-6 h-6 text-gray-700 dark:text-gray-300" />
               </a>
               <a
-                href="mailto:musmanzafar53@gmail.com"
+                href="mailto:jsantiagoravelo@gmail.com"
                 className="p-3 rounded-full bg-white/80 hover:bg-white dark:bg-gray-800/80 dark:hover:bg-gray-800 transition-colors duration-300 shadow-lg hover:shadow-xl"
                 aria-label="Contacto por correo"
               >

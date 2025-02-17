@@ -1,15 +1,17 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Code, Database, Server, Zap } from "lucide-react"
+import { Code, Database, Server, Zap, Bolt, AppWindow, Bot, PackagePlus } from "lucide-react"
 import Image from "next/image"
 
 export default function About() {
   const skills = [
-    { icon: <Code className="w-8 h-8 text-blue-500" />, title: "Front-end", description: "React, Next.js, Redux" },
-    { icon: <Server className="w-8 h-8 text-green-500" />, title: "Back-end", description: "Node.js, Express, Fastify" },
-    { icon: <Database className="w-8 h-8 text-purple-500" />, title: "Base de datos", description: "MongoDB, Mongoose" },
-    { icon: <Zap className="w-8 h-8 text-yellow-500" />, title: "Rendimiento", description: "Optimización, Caché" },
+    { icon: <AppWindow className="w-8 h-8 text-blue-500" />, title: "Front-end", description: "React, Next.js, Vue.js" },
+    { icon: <Bolt className="w-8 h-8 text-green-500" />, title: "Back-end", description: "Node.js, Express, Golang, Flask" },
+    { icon: <Database className="w-8 h-8 text-purple-500" />, title: "Base de datos", description: "MongoDB, PostgreSQL, MySQL, SQL Server" },
+    { icon: <Server className="w-8 h-8 text-yellow-500" />, title: "Servidores", description: "Ubuntu Server, Windows Server" },
+    { icon: <Bot className="w-8 h-8 text-yellow-500" />, title: "RPA/BPA", description: "Scraping, UiPath, Power Automate, Automation Anywhere" },
+    { icon: <PackagePlus className="w-8 h-8 text-yellow-500" />, title: "Otros", description: "Git, LXC, Docker, Odoo, WordPress" },
   ]
 
   return (
@@ -36,14 +38,13 @@ export default function About() {
             transition={{ duration: 0.5 }}
           >
             <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-              Como desarrollador MERN Stack apasionado, me especializo en crear aplicaciones web sólidas y escalables.
-              Con una base sólida en MongoDB, Express.js, React y Node.js, desarrollo soluciones full-stack que brindan
-              experiencias excepcionales a los usuarios.
+              Desarrollador full-stack con experiencia en React, Next.js, Vue.js, Node.js, Golang y Flask, creando aplicaciones web escalables y eficientes. Experto en bases de datos como MongoDB, PostgreSQL, MySQL y SQL Server, y en la gestión de servidores con Ubuntu Server y Windows Server.
             </p>
             <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed">
-              Mi experiencia se extiende a frameworks modernos como Next.js y herramientas de gestión de estado como
-              Redux. Me comprometo a escribir código limpio y eficiente, manteniéndome al día con las últimas tendencias
-              de la industria para ofrecer soluciones de vanguardia a mis clientes.
+            Especialista en automatización de procesos con UiPath, Power Automate, Automation Anywhere y scraping, optimizando flujos de trabajo. Manejo avanzado de Git, Docker, LXC, y plataformas como Odoo y WordPress, garantizando soluciones integrales y de alto rendimiento.
+            </p>
+            <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed mt-6">
+            Enfocado en la seguridad, aplico prácticas como cifrado de datos, control de accesos, protección contra ataques DDoS y gestión segura de credenciales, garantizando la integridad, confidencialidad y disponibilidad de la información en cada proyecto.
             </p>
           </motion.div>
           <motion.div
@@ -65,7 +66,7 @@ export default function About() {
       </div>
       <div className="absolute bottom-0 right-0 w-64 h-64 -mb-32 -mr-32 opacity-20">
         <Image
-          src="/placeholder.svg?height=256&width=256"
+          src="/images/placeholder.svg"
           alt="Fondo decorativo"
           width={256}
           height={256}
