@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Code, Database, Server, Layout, GitBranch, Terminal, Layers, Cpu, Globe, Workflow } from "lucide-react"
+import { Code, Server, Database, Layout, GitBranch, Layers, Cpu, Globe, Workflow, } from "lucide-react"
 import AnimatedSectionHeader from "./AnimatedSectionHeader"
 
 const SkillIcon = ({ icon: Icon, color }: { icon: any; color: string }) => (
@@ -10,28 +10,29 @@ const SkillIcon = ({ icon: Icon, color }: { icon: any; color: string }) => (
   </div>
 )
 
-const skills = [
+export const skills = [
   {
     icon: Code,
     name: "Desarrollo Frontend",
-    tech: "React.js, Next.js",
+    tech: "React, Next.js, Vue.js",
     description:
-      "Construyendo interfaces de usuario responsivas e interactivas con las funcionalidades modernas de React y Next.js para un rendimiento óptimo.",
+      "Creación de interfaces de usuario responsivas e interactivas con React, Next.js y Vue.js, aprovechando las últimas funcionalidades para ofrecer una excelente experiencia de usuario.",
     color: "text-blue-500",
   },
   {
     icon: Server,
     name: "Desarrollo Backend",
-    tech: "Node.js, Express, Fastify",
-    description: "Creando aplicaciones del lado del servidor robustas, con enfoque en escalabilidad y arquitectura limpia.",
+    tech: "Node.js, Express, Golang, Flask",
+    description:
+      "Implementando aplicaciones del lado del servidor con Node.js, Express, Golang y Flask, enfocadas en escalabilidad, seguridad y arquitectura limpia.",
     color: "text-green-500",
   },
   {
     icon: Database,
     name: "Gestión de Bases de Datos",
-    tech: "MongoDB, Mongoose",
+    tech: "MongoDB, PostgreSQL, MySQL, SQL Server",
     description:
-      "Diseñando e implementando esquemas de base de datos y consultas eficientes para una óptima gestión de datos.",
+      "Diseñando e implementando esquemas de bases de datos eficientes con MongoDB, PostgreSQL, MySQL y SQL Server para un manejo de datos seguro y escalable.",
     color: "text-purple-500",
   },
   {
@@ -39,39 +40,31 @@ const skills = [
     name: "Diseño UI/UX",
     tech: "Tailwind CSS, Material UI",
     description:
-      "Creando interfaces de usuario hermosas e intuitivas con principios de diseño y frameworks modernos.",
+      "Creando interfaces de usuario atractivas y fáciles de usar, aplicando principios de diseño e implementaciones modernas con Tailwind CSS y Material UI.",
     color: "text-pink-500",
   },
   {
     icon: GitBranch,
-    name: "Control de Versiones",
-    tech: "Git, GitHub",
+    name: "DevOps e Infraestructura",
+    tech: "Git, Docker, LXC, Ubuntu Server, Windows Server",
     description:
-      "Gestionando versiones de código de manera eficiente con Git y colaborando efectivamente a través de GitHub.",
+      "Configurando y administrando entornos de servidor en Ubuntu y Windows, orquestando contenedores con Docker y LXC, gestionando ciclos de vida de desarrollo con Git y desplegando plataformas como Odoo, WordPress y Zimbra.",
     color: "text-orange-500",
-  },
-  {
-    icon: Terminal,
-    name: "TypeScript",
-    tech: "TypeScript, JavaScript",
-    description:
-      "Escribiendo código con tipado estricto para mejorar la mantenibilidad y la experiencia del desarrollador.",
-    color: "text-yellow-500",
   },
   {
     icon: Layers,
     name: "Gestión de Estado",
     tech: "Redux, Context API",
     description:
-      "Gestionando el estado de aplicaciones complejas con soluciones modernas de gestión de estado.",
+      "Controlando el flujo de datos en aplicaciones complejas utilizando soluciones de gestión de estado como Redux y Context API.",
     color: "text-indigo-500",
   },
   {
     icon: Cpu,
     name: "Desarrollo de APIs",
-    tech: "REST, GraphQL",
+    tech: "REST",
     description:
-      "Diseñando e implementando APIs eficientes para una comunicación de datos fluida.",
+      "Diseñando e implementando APIs seguras y eficientes que permiten la comunicación fluida entre servicios y clientes.",
     color: "text-red-500",
   },
   {
@@ -79,15 +72,15 @@ const skills = [
     name: "Rendimiento Web",
     tech: "Optimización, SEO",
     description:
-      "Optimizando aplicaciones web para velocidad, accesibilidad y visibilidad en buscadores.",
+      "Optimizando sitios y aplicaciones para mejorar la velocidad, accesibilidad y posicionamiento en motores de búsqueda.",
     color: "text-teal-500",
   },
   {
     icon: Workflow,
-    name: "Metodologías Ágiles",
-    tech: "Scrum, Kanban",
+    name: "Automatizaciones (RPA/BPA)",
+    tech: "Scraping, UiPath, Power Automate, Automation Anywhere",
     description:
-      "Trabajando eficientemente en entornos ágiles con enfoque en la entrega continua.",
+      "Creación de flujos automatizados para la extracción de datos, integración de procesos y optimización de tareas repetitivas.",
     color: "text-cyan-500",
   },
 ]

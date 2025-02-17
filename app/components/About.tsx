@@ -11,7 +11,7 @@ export default function About() {
     { icon: <Database className="w-8 h-8 text-purple-500" />, title: "Base de datos", description: "MongoDB, PostgreSQL, MySQL, SQL Server" },
     { icon: <Server className="w-8 h-8 text-yellow-500" />, title: "Servidores", description: "Ubuntu Server, Windows Server" },
     { icon: <Bot className="w-8 h-8 text-yellow-500" />, title: "RPA/BPA", description: "Scraping, UiPath, Power Automate, Automation Anywhere" },
-    { icon: <PackagePlus className="w-8 h-8 text-yellow-500" />, title: "Otros", description: "Git, LXC, Docker, Odoo, WordPress" },
+    { icon: <PackagePlus className="w-8 h-8 text-yellow-500" />, title: "Otros", description: "Git, LXC, Docker, Odoo, WordPress, Zimbra" },
   ]
 
   return (
