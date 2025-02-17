@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Code, Database, Server, Zap, Bolt, AppWindow, Bot, PackagePlus } from "lucide-react"
+import { Database, Server, Bolt, AppWindow, Bot, PackagePlus } from "lucide-react"
 import Image from "next/image"
 
 export default function About() {
