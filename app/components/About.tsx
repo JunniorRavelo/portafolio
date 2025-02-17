@@ -41,10 +41,10 @@ export default function About() {
               Desarrollador full-stack con experiencia en React, Next.js, Vue.js, Node.js, Golang y Flask, creando aplicaciones web escalables y eficientes. Experto en bases de datos como MongoDB, PostgreSQL, MySQL y SQL Server, y en la gestión de servidores con Ubuntu Server y Windows Server.
             </p>
             <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed">
-            Especialista en automatización de procesos con UiPath, Power Automate, Automation Anywhere y scraping, optimizando flujos de trabajo. Manejo avanzado de Git, Docker, LXC, y plataformas como Odoo y WordPress, garantizando soluciones integrales y de alto rendimiento.
+              Especialista en automatización de procesos con UiPath, Power Automate, Automation Anywhere y scraping, optimizando flujos de trabajo. Manejo avanzado de Git, Docker, LXC, y plataformas como Odoo y WordPress, garantizando soluciones integrales y de alto rendimiento.
             </p>
             <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed mt-6">
-            Enfocado en la seguridad, aplico prácticas como cifrado de datos, control de accesos, protección contra ataques DDoS y gestión segura de credenciales, garantizando la integridad, confidencialidad y disponibilidad de la información en cada proyecto.
+              Enfocado en la seguridad, aplico prácticas como cifrado de datos, control de accesos, protección contra ataques DDoS y gestión segura de credenciales, garantizando la integridad, confidencialidad y disponibilidad de la información en cada proyecto.
             </p>
           </motion.div>
           <motion.div
@@ -64,7 +64,7 @@ export default function About() {
           </motion.div>
         </div>
       </div>
-      <div className="absolute bottom-0 right-0 w-64 h-64 -mb-32 -mr-32 opacity-20">
+      <div className="absolute bottom-0 right-0 w-64 h-64 -mb-32 -mr-32 opacity-20" style={{ display: "none" }}>
         <Image
           src="/images/placeholder.svg"
           alt="Fondo decorativo"
