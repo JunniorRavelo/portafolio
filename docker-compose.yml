@@ -1,0 +1,12 @@
+version: '3.9'
+
+services:
+  next:
+    build: .
+    # Monta el directorio actual en /app dentro del contenedor para que cualquier cambio se refleje
+    volumes:
+      - .:/app
+      # Opcional: evita que se sobrescriba la carpeta node_modules interna con la del host
+      - /app/node_modules
+    ports:
+      - "3000:3000"
