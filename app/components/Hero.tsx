@@ -100,8 +100,8 @@ export default function Hero() {
               <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-blue-400 dark:from-purple-600 dark:to-blue-600 rounded-3xl transform -rotate-6 opacity-50"></div>
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <div className="relative w-full h-full">
-                  <Image 
-                    src="/placeholder.svg?height=384&width=384"
+                  <Image
+                    src="/placeholder.svg"
                     alt="Marcador de posición del propietario del portafolio"
                     width={384}
                     height={384}

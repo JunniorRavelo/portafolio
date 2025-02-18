@@ -1,7 +1,6 @@
 "use client"
 
 import { Briefcase, Calendar, MapPin, Globe } from "lucide-react"
-import Image from "next/image"
 import { motion } from "framer-motion"
 import AnimatedSectionHeader from "./AnimatedSectionHeader"
 
@@ -100,9 +99,6 @@ export default function Experience() {
             </motion.div>
           ))}
         </div>
-      </div>
-      <div className="absolute bottom-0 right-0 w-64 h-64 -mb-32 -mr-32 opacity-20" style={{ display: "none" }}>
-        <Image src="/placeholder.svg?height=256&width=256" alt="Fondo decorativo" width={256} height={256} />
       </div>
     </section>
   )

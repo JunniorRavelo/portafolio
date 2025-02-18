@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion"
 import { Database, Server, Bolt, AppWindow, Bot, PackagePlus } from "lucide-react"
-import Image from "next/image"
 
 export default function About() {
   const skills = [
@@ -63,14 +62,6 @@ export default function About() {
             ))}
           </motion.div>
         </div>
-      </div>
-      <div className="absolute bottom-0 right-0 w-64 h-64 -mb-32 -mr-32 opacity-20" style={{ display: "none" }}>
-        <Image
-          src="/images/placeholder.svg"
-          alt="Fondo decorativo"
-          width={256}
-          height={256}
-        />
       </div>
     </section>
   )

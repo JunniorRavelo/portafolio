@@ -3,7 +3,6 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { Mail, MapPin, Phone, Send, Loader2 } from "lucide-react"
-import Image from "next/image"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
@@ -169,14 +168,6 @@ export default function Contact() {
             </form>
           </motion.div>
         </div>
-      </div>
-      <div className="absolute bottom-0 right-0 w-64 h-64 -mb-32 -mr-32 opacity-20" style={{ display: "none" }}>
-        <Image
-          src="/placeholder.svg?height=256&width=256"
-          alt="Fondo decorativo"
-          width={256}
-          height={256}
-        />
       </div>
     </section>
   )
