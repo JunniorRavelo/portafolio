@@ -15,8 +15,16 @@ const sections = [
 
 export default function FloatingNav() {
   const [activeSection, setActiveSection] = useState("hero")
+  const [isMobile, setIsMobile] = useState(false)
+  const [tappedId, setTappedId] = useState<string | null>(null)
 
   useEffect(() => {
+    // Detecta si es móvil
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+
+    // IntersectionObserver para actualizar activeSection
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -25,7 +33,7 @@ export default function FloatingNav() {
           }
         })
       },
-      { threshold: 0.5 },
+      { threshold: 0.1 }
     )
 
     sections.forEach(({ id }) => {
@@ -33,12 +41,23 @@ export default function FloatingNav() {
       if (element) observer.observe(element)
     })
 
-    return () => observer.disconnect()
+    return () => {
+      window.removeEventListener("resize", checkMobile)
+      observer.disconnect()
+    }
   }, [])
+
+  const handleClick = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
+    if (isMobile) {
+      setTappedId(id)
+      setTimeout(() => setTappedId(null), 2000)
+    }
+  }
 
   return (
     <motion.div
-      className="fixed right-4 top-1/2 transform -translate-y-1/2 z-50"
+      className="fixed right-4 top-1/2 transform -translate-y-1/2 z-50 md:right-4 sm:right-2"
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: 1 }}
@@ -47,11 +66,22 @@ export default function FloatingNav() {
         {sections.map(({ id, label }) => (
           <button
             key={id}
-            onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })}
+            onClick={() => handleClick(id)}
             className="group relative flex items-center"
             aria-label={`Desplazar a ${label}`}
           >
-            <span className="absolute right-8 px-2 py-1 rounded bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <span
+              onClick={(e) => {
+                if (isMobile) e.stopPropagation()
+              }}
+              className={`absolute right-8 px-2 py-1 rounded bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-sm transition-opacity duration-300 ${
+                isMobile
+                  ? tappedId === id
+                    ? "opacity-100"
+                    : "opacity-0"
+                  : "opacity-0 group-hover:opacity-100"
+              }`}
+            >
               {label}
             </span>
             <div

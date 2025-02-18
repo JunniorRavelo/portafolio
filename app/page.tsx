@@ -6,6 +6,7 @@ import Services from "./components/Services"
 import Education from "./components/Education"
 import Contact from "./components/Contact"
 import FloatingNav from "./components/floating-nav"
+import Footer from "./components/Footer"
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <Services />
       <Education />
       <Contact />
+      <Footer />
     </main>
   )
 }
