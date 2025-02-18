@@ -29,20 +29,27 @@ export default function Contact() {
     resolver: zodResolver(formSchema),
   })
 
-  const onSubmit = async () => {
-    setIsSubmitting(true)
+  const onSubmit = async (data: FormData) => {
+    setIsSubmitting(true);
     try {
-      // Aquí normalmente enviarías los datos del formulario a tu backend
-      await new Promise((resolve) => setTimeout(resolve, 1000)) // Simulación de llamada a la API
-      setSubmitSuccess(true)
-      reset()
-      setTimeout(() => setSubmitSuccess(false), 3000)
+      const res = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) throw new Error("Error al enviar correo");
+
+      setSubmitSuccess(true);
+      reset();
+      setTimeout(() => setSubmitSuccess(false), 3000);
     } catch (error) {
-      console.error("Error al enviar el formulario:", error)
+      console.error("Error al enviar el formulario:", error);
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
+
 
   return (
     <section

@@ -22,10 +22,11 @@ export async function POST(request) {
     await transporter.sendMail({
       from: process.env.SMTP_FROM,       // Remitente
       to: process.env.SMTP_TO,           // Destinatario (puedes poner un correo fijo o usar email)
-      subject: subject,
+      subject: "Portafolio web: ",
       html: `
       <h2>Portafolio web</h2>
         <p>Has recibido un mensaje de contacto: Jsravelo.site</p>
+        <p><strong>Asunto:</strong> ${subject}</p>
         <p><strong>Nombre:</strong> ${name}</p>
         <p><strong>Correo:</strong> ${email}</p>
         <p><strong>Mensaje:</strong> ${message}</p>
