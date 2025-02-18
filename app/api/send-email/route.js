@@ -24,6 +24,8 @@ export async function POST(request) {
       to: process.env.SMTP_TO,           // Destinatario (puedes poner un correo fijo o usar email)
       subject: subject,
       html: `
+      <h2>Portafolio web</h2>
+        <p>Has recibido un mensaje de contacto: Jsravelo.site</p>
         <p><strong>Nombre:</strong> ${name}</p>
         <p><strong>Correo:</strong> ${email}</p>
         <p><strong>Mensaje:</strong> ${message}</p>
