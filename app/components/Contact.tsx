@@ -8,11 +8,38 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 
 const formSchema = z.object({
-  name: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
-  email: z.string().email("Por favor ingresa un correo electrónico válido"),
-  subject: z.string().min(5, "El asunto debe tener al menos 5 caracteres"),
-  message: z.string().min(10, "El mensaje debe tener al menos 10 caracteres"),
+  // Nombre: solo letras y espacios, 3 a 32 caracteres
+  name: z
+    .string()
+    .regex(/^[A-Za-z\s]{3,32}$/, "Solo se permiten letras y espacios (3-32 caracteres)"),
+
+  // Correo: letras, números, guion(-), guion bajo(_), punto(.), un solo @; 6 a 32 caracteres
+  email: z
+    .string()
+    .regex(
+      /^[A-Za-z0-9_.-]+@[A-Za-z0-9_.-]+$/,
+      "Formato de correo inválido (solo letras, números, '_', '-', '.' y un '@')"
+    )
+    .min(6, "El correo debe tener mínimo 6 caracteres")
+    .max(32, "El correo no debe exceder 32 caracteres"),
+
+  // Asunto: solo letras y espacios, 4 a 32 caracteres
+  subject: z
+    .string()
+    .regex(/^[A-Za-z\s]{4,32}$/, "Solo letras y espacios (4-32 caracteres)"),
+
+  
+  // Mensaje: letras (con tildes), números, espacios, comas, puntos y signos de interrogación; mínimo 10 caracteres
+  message: z
+    .string()
+    .regex(
+      /^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ0-9\s,\.¿\?]+$/,
+      "Solo se permiten letras (con tildes), números, espacios, comas, puntos y signos de interrogación"
+    )
+    .min(10, "El mensaje debe tener al menos 10 caracteres"),
+
 })
+
 
 type FormData = z.infer<typeof formSchema>
 
