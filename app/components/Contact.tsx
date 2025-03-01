@@ -28,7 +28,6 @@ const formSchema = z.object({
     .string()
     .regex(/^[A-Za-z\s]{4,32}$/, "Solo letras y espacios (4-32 caracteres)"),
 
-  
   // Mensaje: letras (con tildes), números, espacios, comas, puntos y signos de interrogación; mínimo 10 caracteres
   message: z
     .string()
@@ -37,9 +36,7 @@ const formSchema = z.object({
       "Solo se permiten letras (con tildes), números, espacios, comas, puntos y signos de interrogación"
     )
     .min(10, "El mensaje debe tener al menos 10 caracteres"),
-
 })
-
 
 type FormData = z.infer<typeof formSchema>
 
@@ -57,26 +54,25 @@ export default function Contact() {
   })
 
   const onSubmit = async (data: FormData) => {
-    setIsSubmitting(true);
+    setIsSubmitting(true)
     try {
       const res = await fetch("/api/send-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
-      });
+      })
 
-      if (!res.ok) throw new Error("Error al enviar correo");
+      if (!res.ok) throw new Error("Error al enviar correo")
 
-      setSubmitSuccess(true);
-      reset();
-      setTimeout(() => setSubmitSuccess(false), 3000);
+      setSubmitSuccess(true)
+      reset()
+      setTimeout(() => setSubmitSuccess(false), 3000)
     } catch (error) {
-      console.error("Error al enviar el formulario:", error);
+      console.error("Error al enviar el formulario:", error)
     } finally {
-      setIsSubmitting(false);
+      setIsSubmitting(false)
     }
-  };
-
+  }
 
   return (
     <section
@@ -139,24 +135,40 @@ export default function Contact() {
                     Nombre
                   </label>
                   <input
+                    id="name"
                     {...register("name")}
                     type="text"
-                    className={`w-full px-4 py-2 rounded-md border ${errors.name ? "border-red-500" : "border-gray-300 dark:border-gray-600"
-                      } focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white`}
+                    aria-invalid={!!errors.name}
+                    aria-describedby={errors.name ? "name-error" : undefined}
+                    className={`w-full px-4 py-2 rounded-md border ${
+                      errors.name ? "border-red-500" : "border-gray-300 dark:border-gray-600"
+                    } focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white`}
                   />
-                  {errors.name && <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>}
+                  {errors.name && (
+                    <p id="name-error" role="alert" className="mt-1 text-sm text-red-500">
+                      {errors.name.message}
+                    </p>
+                  )}
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Correo electrónico
                   </label>
                   <input
+                    id="email"
                     {...register("email")}
                     type="email"
-                    className={`w-full px-4 py-2 rounded-md border ${errors.email ? "border-red-500" : "border-gray-300 dark:border-gray-600"
-                      } focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white`}
+                    aria-invalid={!!errors.email}
+                    aria-describedby={errors.email ? "email-error" : undefined}
+                    className={`w-full px-4 py-2 rounded-md border ${
+                      errors.email ? "border-red-500" : "border-gray-300 dark:border-gray-600"
+                    } focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white`}
                   />
-                  {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>}
+                  {errors.email && (
+                    <p id="email-error" role="alert" className="mt-1 text-sm text-red-500">
+                      {errors.email.message}
+                    </p>
+                  )}
                 </div>
               </div>
               <div className="mt-6">
@@ -164,38 +176,55 @@ export default function Contact() {
                   Asunto
                 </label>
                 <input
+                  id="subject"
                   {...register("subject")}
                   type="text"
-                  className={`w-full px-4 py-2 rounded-md border ${errors.subject ? "border-red-500" : "border-gray-300 dark:border-gray-600"
-                    } focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white`}
+                  aria-invalid={!!errors.subject}
+                  aria-describedby={errors.subject ? "subject-error" : undefined}
+                  className={`w-full px-4 py-2 rounded-md border ${
+                    errors.subject ? "border-red-500" : "border-gray-300 dark:border-gray-600"
+                  } focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white`}
                 />
-                {errors.subject && <p className="mt-1 text-sm text-red-500">{errors.subject.message}</p>}
+                {errors.subject && (
+                  <p id="subject-error" role="alert" className="mt-1 text-sm text-red-500">
+                    {errors.subject.message}
+                  </p>
+                )}
               </div>
               <div className="mt-6">
                 <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Mensaje
                 </label>
                 <textarea
+                  id="message"
                   {...register("message")}
                   rows={4}
-                  className={`w-full px-4 py-2 rounded-md border ${errors.message ? "border-red-500" : "border-gray-300 dark:border-gray-600"
-                    } focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white`}
+                  aria-invalid={!!errors.message}
+                  aria-describedby={errors.message ? "message-error" : undefined}
+                  className={`w-full px-4 py-2 rounded-md border ${
+                    errors.message ? "border-red-500" : "border-gray-300 dark:border-gray-600"
+                  } focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white`}
                 ></textarea>
-                {errors.message && <p className="mt-1 text-sm text-red-500">{errors.message.message}</p>}
+                {errors.message && (
+                  <p id="message-error" role="alert" className="mt-1 text-sm text-red-500">
+                    {errors.message.message}
+                  </p>
+                )}
               </div>
               <div className="mt-6">
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center ${isSubmitting ? "opacity-75 cursor-not-allowed" : ""
-                    }`}
+                  className={`w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center ${
+                    isSubmitting ? "opacity-75 cursor-not-allowed" : ""
+                  }`}
                 >
                   {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin mr-2" /> : <Send className="w-5 h-5 mr-2" />}
                   {isSubmitting ? "Enviando..." : "Enviar mensaje"}
                 </button>
               </div>
               {submitSuccess && (
-                <div className="mt-4 p-4 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded-md">
+                <div role="alert" className="mt-4 p-4 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded-md">
                   ¡Mensaje enviado exitosamente!
                 </div>
               )}
