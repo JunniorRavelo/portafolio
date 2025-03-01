@@ -1,6 +1,12 @@
 {
   "name": "portfolio-v5",
-  "version": "0.1.0",
+  "author": {
+    "name": "Junnior Santiago Ravelo Velasco",
+    "email": "JSantiagoRavelo@gmail.com",
+    "url": "https://jsravelo.com",
+    "github": "https://github.com/JunniorRavelo"
+  },
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
