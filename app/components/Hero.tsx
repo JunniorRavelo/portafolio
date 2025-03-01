@@ -52,7 +52,7 @@ export default function Hero() {
               Ingeniero DevOps Full Stack
             </h2>
             <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto lg:mx-0">
-            Ingeniero DevOps Full Stack con experiencia en desarrollo web, automatización y gestión de servidores. Especializado en React, Node.js, Golang y bases de datos como MongoDB y PostgreSQL.
+              Ingeniero DevOps Full Stack con experiencia en desarrollo web, automatización y gestión de servidores. Especializado en React, Node.js, Golang y bases de datos como MongoDB y PostgreSQL.
             </p>
             <div className="flex justify-center lg:justify-start space-x-4 mb-8">
               <a
@@ -108,7 +108,7 @@ export default function Hero() {
                     priority
                   />
                   <Image
-                    src="https://media.licdn.com/dms/image/v2/D4E03AQHYyND9GWSfvQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1719946957839?e=1745452800&v=beta&t=LPvj1tj5rVTJNDWcyrsaqkfoCpQRPHgDZ9SxJdLDlT0"
+                    src="/images/profile.webp"
                     alt="Junnior Santiago Ravelo Velasco"
                     fill
                     className="object-cover"

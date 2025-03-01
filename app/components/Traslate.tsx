@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import Script from 'next/script'
+import Image from 'next/image'
 
 // Declaración para evitar error en TS
 declare function doGTranslate(langPair: string): void;
@@ -18,7 +19,6 @@ const languages = {
     translatePair: "es|en"
   }
 }
-
 
 const Translate = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
@@ -113,7 +113,15 @@ const Translate = () => {
       </Script>
 
       {/* Dropdown en la esquina superior izquierda */}
-      <div ref={dropdownRef} style={{ position: 'fixed', top: '20px', left: '20px', zIndex: 999 }}>
+      <div
+        ref={dropdownRef}
+        style={{
+          position: 'fixed',
+          top: '20px',
+          left: '20px',
+          zIndex: 999
+        }}
+      >
         <div
           onClick={toggleDropdown}
           style={{
@@ -123,11 +131,11 @@ const Translate = () => {
             userSelect: 'none'
           }}
         >
-          <img
+          <Image
             src={languages[currentLang].flag}
             alt={languages[currentLang].label}
-            width="40"
-            height="40"
+            width={40}
+            height={40}
             style={{ objectFit: 'cover' }}
           />
           <span style={{ marginLeft: '5px', color: '#000' }}>▼</span>
@@ -141,7 +149,7 @@ const Translate = () => {
               overflow: 'hidden',
               backgroundColor: 'rgba(255, 255, 255, 0.5)', // Fondo semitransparente
               backdropFilter: 'blur(5px)',               // Efecto de desenfoque
-              WebkitBackdropFilter: 'blur(5px)'            // Compatibilidad con Safari
+              WebkitBackdropFilter: 'blur(5px)'          // Compatibilidad con Safari
             }}
           >
             {Object.entries(languages).map(([key, lang]) => (
@@ -155,11 +163,11 @@ const Translate = () => {
                   alignItems: 'center'
                 }}
               >
-                <img
+                <Image
                   src={lang.flag}
                   alt={lang.label}
-                  width="40"
-                  height="40"
+                  width={40}
+                  height={40}
                   style={{ objectFit: 'cover' }}
                 />
                 <span style={{ marginLeft: '5px', color: '#000' }}>{lang.label}</span>
