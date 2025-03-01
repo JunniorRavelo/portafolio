@@ -7,12 +7,19 @@ on:
     branches: [ "main" ]
 
 jobs:
-
-  build:
-
+  build-and-deploy:
     runs-on: self-hosted
-
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Construir imagen Docker
+        run: docker build -t my-image-name:latest -f Dockerfile .
+
+      - name: Detener contenedor anterior (si existe)
+        run: |
+          docker stop my-app || true
+          docker rm my-app || true
+
+      - name: Ejecutar contenedor nuevo
+        run: docker run -d -p 3000:3000 --name my-app my-image-name:latest
