@@ -100,7 +100,7 @@ export default function Hero() {
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <div className="relative w-full h-full">
                   <Image
-                    src="/placeholder.svg"
+                    src="/images/placeholder.svg"
                     alt="Marcador de posición del propietario del portafolio"
                     width={384}
                     height={384}
