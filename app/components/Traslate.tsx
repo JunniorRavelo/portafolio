@@ -9,15 +9,16 @@ declare function doGTranslate(langPair: string): void;
 const languages = {
   es: {
     label: "Spanish",
-    flag: "https://dyamdev.com/wp-content/uploads/2024/06/es.webp",
+    flag: "/images/es.webp",
     translatePair: "es|es"
   },
   en: {
     label: "English",
-    flag: "https://dyamdev.com/wp-content/uploads/2024/06/en.webp",
+    flag: "/images/en.webp",
     translatePair: "es|en"
   }
 }
+
 
 const Translate = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
