@@ -7,10 +7,12 @@ import Education from "./components/Education"
 import Contact from "./components/Contact"
 import FloatingNav from "./components/floating-nav"
 import Footer from "./components/Footer"
+import Traslate from "./components/Traslate"
 
 export default function Home() {
   return (
     <main className="bg-gray-50 dark:bg-gray-900 min-h-screen">
+      <Traslate />
       <FloatingNav />
       <Hero />
       <About />

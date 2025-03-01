@@ -21,7 +21,7 @@ export default function Experience() {
       ],
     },
     {
-      company: "P&C Marketing S.A.A",
+      company: "P&C Marketing S.A.S",
       location: "Híbrido",
       period: "2020 - 2023",
       role: "Clicker",

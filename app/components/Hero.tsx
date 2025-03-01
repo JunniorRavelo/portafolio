@@ -52,8 +52,7 @@ export default function Hero() {
               Ingeniero DevOps Full Stack
             </h2>
             <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto lg:mx-0">
-              Creando experiencias digitales excepcionales con tecnologías web modernas. Especializado en construir
-              aplicaciones full-stack escalables utilizando MongoDB, Express.js, React y Node.js.
+            Ingeniero DevOps Full Stack con experiencia en desarrollo web, automatización y gestión de servidores. Especializado en React, Node.js, Golang y bases de datos como MongoDB y PostgreSQL.
             </p>
             <div className="flex justify-center lg:justify-start space-x-4 mb-8">
               <a
