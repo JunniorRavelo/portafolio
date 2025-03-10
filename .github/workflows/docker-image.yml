@@ -9,6 +9,14 @@ on:
 jobs:
   build-and-deploy:
     runs-on: self-hosted
+    env:
+      SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      SMTP_SECURE: ${{ secrets.SMTP_SECURE }}
+      SMTP_USER: ${{ secrets.SMTP_USER }}
+      SMTP_PASS: ${{ secrets.SMTP_PASS }}
+      SMTP_FROM: ${{ secrets.SMTP_FROM }}
+      SMTP_TO: ${{ secrets.SMTP_TO }}
     steps:
       - name: Checkout del código
         uses: actions/checkout@v4
@@ -21,5 +29,14 @@ jobs:
           docker stop my-app || true
           docker rm my-app || true
 
-      - name: Ejecutar contenedor nuevo
-        run: docker run -d -p 3000:3000 --name my-app my-image-name:latest
+      - name: Ejecutar contenedor nuevo con variables de entorno
+        run: |
+          docker run -d -p 3000:3000 --name my-app \
+            -e SMTP_HOST=${SMTP_HOST} \
+            -e SMTP_PORT=${SMTP_PORT} \
+            -e SMTP_SECURE=${SMTP_SECURE} \
+            -e SMTP_USER=${SMTP_USER} \
+            -e SMTP_PASS=${SMTP_PASS} \
+            -e SMTP_FROM=${SMTP_FROM} \
+            -e SMTP_TO=${SMTP_TO} \
+            my-image-name:latest
