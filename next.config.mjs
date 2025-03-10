@@ -1,15 +1,20 @@
-/** @type {import('next').NextConfig} */
+// next.config.js
 const nextConfig = {
   async headers() {
     return [
       {
-        // Aplica el header a todas las rutas
         source: '/(.*)',
         headers: [
           {
             key: 'Content-Security-Policy',
-            // Configuración básica de CSP; ajústala según tus necesidades.
-            value: "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'",
+            value: `
+              default-src 'self';
+              script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com;
+              style-src 'self' 'unsafe-inline';
+              img-src 'self' data:;
+              font-src 'self';
+              connect-src 'self' https://www.google-analytics.com;
+            `.replace(/\s{2,}/g, ' '),
           },
         ],
       },
