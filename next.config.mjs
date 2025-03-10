@@ -1,5 +1,6 @@
 // next.config.js
 const nextConfig = {
+  poweredByHeader: false,
   async headers() {
     return [
       {
