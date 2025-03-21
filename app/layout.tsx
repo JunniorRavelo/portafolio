@@ -8,8 +8,9 @@ import Script from "next/script"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "J. Santiago Ravelo",
-  description: "Portfolio de J. Santiago Ravelo, ingeniero DevOps Full Stack especializado en tecnologías web modernas.",
+  title: "J. Santiago Ravelo - Desarrollador Web en Cúcuta, Colombia",
+  description:
+    "Portafolio de Junnior Santiago Ravelo Velasco, desarrollador web profesional en Cúcuta. Proyectos, contacto y experiencia.",
 }
 
 export default function RootLayout({
@@ -19,6 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head />
       {/* Google Analytics Scripts */}
       <Script
         async
@@ -34,7 +36,32 @@ export default function RootLayout({
         `}
       </Script>
 
-  
+      {/* JSON-LD Structured Data */}
+      <Script
+        id="json-ld"
+        type="application/ld+json"
+        strategy="afterInteractive"
+      >
+        {`
+          {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Junnior Santiago Ravelo Velasco",
+            "url": "https://jsravelo.com",
+            "address": {
+              "@type": "PostalAddress",
+              "postalCode": "540011",
+              "addressLocality": "Cúcuta",
+              "addressRegion": "Norte de Santander",
+              "addressCountry": "Colombia"
+            },
+            "sameAs": [
+              "https://www.linkedin.com/in/jsravelo/",
+              "https://github.com/JunniorRavelo"
+            ]
+          }
+        `}
+      </Script>
 
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
