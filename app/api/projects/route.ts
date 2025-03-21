@@ -1,4 +1,8 @@
+// app/api/projects/route.ts
 import { NextResponse } from "next/server"
+
+// Revalida cada 7 días (en segundos)
+const REVALIDATE_7_DAYS = 60 * 60 * 24 * 7
 
 export async function GET() {
   try {
@@ -10,14 +14,14 @@ export async function GET() {
       )
     }
 
-    // Reemplaza 'Bearer' por 'token' si tu token es Clásico (Personal Access Token)
     const res = await fetch("https://api.github.com/user/repos?visibility=public", {
       headers: {
         Authorization: `Bearer ${token}`,
         Accept: "application/vnd.github.v3+json",
         "User-Agent": "Next.js",
       },
-      cache: "no-store", // evita que Next.js haga caché
+      // En Next 13+ puedes usar el objeto `next` para controlar el revalidate
+      next: { revalidate: REVALIDATE_7_DAYS },
     })
 
     if (!res.ok) {
