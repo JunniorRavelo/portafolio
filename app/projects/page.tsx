@@ -61,6 +61,7 @@ export default function ProjectsPage() {
 
         const repos = await res.json()
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const transformed = repos.map((repo: any) => ({
           id: repo.id.toString(),
           name: repo.name,
