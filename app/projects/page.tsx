@@ -16,7 +16,10 @@ import Image from "next/image"
 import Link from "next/link"
 import Footer from "../components/Footer"
 
-// Definimos el tipo Project
+// Importa el array de proyectos desde el JSON
+import projectsData from "../data/projects.json" // ajusta la ruta según tu estructura
+
+// Definimos el tipo Project (opcional pero recomendado)
 type Project = {
   id: string
   name: string
@@ -31,235 +34,6 @@ type Project = {
   date: string // Formato "YYYY-MM-DD"
 }
 
-// 25 PROYECTOS DE EJEMPLO
-const projectsData: Project[] = [
-  {
-    id: "1",
-    name: "Proyecto 1",
-    description: "Descripción breve del proyecto 1.",
-    coverImage: "/placeholder.svg",
-    technologies: ["React", "TypeScript", "Tailwind CSS"],
-    links: { website: "https://example.com", github: "https://github.com/example/1" },
-    date: "2025-01-01",
-  },
-  {
-    id: "2",
-    name: "Proyecto 2",
-    description: "Descripción breve del proyecto 2.",
-    coverImage: "/placeholder.svg",
-    technologies: ["Next.js", "Prisma", "PostgreSQL"],
-    links: { github: "https://github.com/example/2" },
-    date: "2025-01-02",
-  },
-  {
-    id: "3",
-    name: "Proyecto 3",
-    description: "Descripción breve del proyecto 3.",
-    coverImage: "/placeholder.svg",
-    technologies: ["React Native", "Firebase", "Redux"],
-    links: { youtube: "https://youtube.com/watch?v=example3" },
-    date: "2025-01-03",
-  },
-  {
-    id: "4",
-    name: "Proyecto 4",
-    description: "Descripción breve del proyecto 4.",
-    coverImage: "/placeholder.svg",
-    technologies: ["Node.js", "Express", "MongoDB"],
-    links: { website: "https://example4.com", github: "https://github.com/example/4" },
-    date: "2025-01-04",
-  },
-  {
-    id: "5",
-    name: "Proyecto 5",
-    description: "Descripción breve del proyecto 5.",
-    coverImage: "/placeholder.svg",
-    technologies: ["Vue.js", "Pinia", "Tailwind CSS"],
-    links: { website: "https://example5.com" },
-    date: "2025-01-05",
-  },
-  {
-    id: "6",
-    name: "Proyecto 6",
-    description: "Descripción breve del proyecto 6.",
-    coverImage: "/placeholder.svg",
-    technologies: ["Angular", "RxJS", "NgRx"],
-    links: { github: "https://github.com/example/6" },
-    date: "2025-01-06",
-  },
-  {
-    id: "7",
-    name: "Proyecto 7",
-    description: "Descripción breve del proyecto 7.",
-    coverImage: "/placeholder.svg",
-    technologies: ["Python", "Django", "PostgreSQL"],
-    links: { website: "https://example7.com", github: "https://github.com/example/7" },
-    date: "2025-01-07",
-  },
-  {
-    id: "8",
-    name: "Proyecto 8",
-    description: "Descripción breve del proyecto 8.",
-    coverImage: "/placeholder.svg",
-    technologies: ["Go", "Fiber", "MySQL"],
-    links: { website: "https://example8.com" },
-    date: "2025-01-08",
-  },
-  {
-    id: "9",
-    name: "Proyecto 9",
-    description: "Descripción breve del proyecto 9.",
-    coverImage: "/placeholder.svg",
-    technologies: ["PHP", "Laravel", "MySQL"],
-    links: { github: "https://github.com/example/9" },
-    date: "2025-01-09",
-  },
-  {
-    id: "10",
-    name: "Proyecto 10",
-    description: "Descripción breve del proyecto 10.",
-    coverImage: "/placeholder.svg",
-    technologies: ["Ruby", "Rails", "PostgreSQL"],
-    links: { github: "https://github.com/example/10", youtube: "https://youtube.com/watch?v=example10" },
-    date: "2025-01-10",
-  },
-  {
-    id: "11",
-    name: "Proyecto 11",
-    description: "Descripción breve del proyecto 11.",
-    coverImage: "/placeholder.svg",
-    technologies: ["React", "Node.js", "GraphQL"],
-    links: { website: "https://example11.com" },
-    date: "2025-01-11",
-  },
-  {
-    id: "12",
-    name: "Proyecto 12",
-    description: "Descripción breve del proyecto 12.",
-    coverImage: "/placeholder.svg",
-    technologies: ["React Native", "Expo", "SQLite"],
-    links: { github: "https://github.com/example/12" },
-    date: "2025-01-12",
-  },
-  {
-    id: "13",
-    name: "Proyecto 13",
-    description: "Descripción breve del proyecto 13.",
-    coverImage: "/placeholder.svg",
-    technologies: ["Next.js", "MongoDB", "Tailwind CSS"],
-    links: { youtube: "https://youtube.com/watch?v=example13" },
-    date: "2025-01-13",
-  },
-  {
-    id: "14",
-    name: "Proyecto 14",
-    description: "Descripción breve del proyecto 14.",
-    coverImage: "/placeholder.svg",
-    technologies: ["Angular", "NestJS", "MySQL"],
-    links: { website: "https://example14.com", github: "https://github.com/example/14" },
-    date: "2025-01-14",
-  },
-  {
-    id: "15",
-    name: "Proyecto 15",
-    description: "Descripción breve del proyecto 15.",
-    coverImage: "/placeholder.svg",
-    technologies: ["Svelte", "Node.js", "PostgreSQL"],
-    links: { website: "https://example15.com" },
-    date: "2025-01-15",
-  },
-  {
-    id: "16",
-    name: "Proyecto 16",
-    description: "Descripción breve del proyecto 16.",
-    coverImage: "/placeholder.svg",
-    technologies: ["Go", "Gin", "MongoDB"],
-    links: { github: "https://github.com/example/16" },
-    date: "2025-01-16",
-  },
-  {
-    id: "17",
-    name: "Proyecto 17",
-    description: "Descripción breve del proyecto 17.",
-    coverImage: "/placeholder.svg",
-    technologies: ["Python", "Flask", "SQLite"],
-    links: { website: "https://example17.com", youtube: "https://youtube.com/watch?v=example17" },
-    date: "2025-01-17",
-  },
-  {
-    id: "18",
-    name: "Proyecto 18",
-    description: "Descripción breve del proyecto 18.",
-    coverImage: "/placeholder.svg",
-    technologies: ["Vue.js", "Node.js", "GraphQL"],
-    links: { github: "https://github.com/example/18" },
-    date: "2025-01-18",
-  },
-  {
-    id: "19",
-    name: "Proyecto 19",
-    description: "Descripción breve del proyecto 19.",
-    coverImage: "/placeholder.svg",
-    technologies: ["React", "AWS Lambda", "DynamoDB"],
-    links: { website: "https://example19.com" },
-    date: "2025-01-19",
-  },
-  {
-    id: "20",
-    name: "Proyecto 20",
-    description: "Descripción breve del proyecto 20.",
-    coverImage: "/placeholder.svg",
-    technologies: ["Next.js", "tRPC", "Prisma"],
-    links: { github: "https://github.com/example/20" },
-    date: "2025-01-20",
-  },
-  {
-    id: "21",
-    name: "Proyecto 21",
-    description: "Descripción breve del proyecto 21.",
-    coverImage: "/placeholder.svg",
-    technologies: ["React Native", "Firebase", "Tailwind CSS"],
-    links: { youtube: "https://youtube.com/watch?v=example21" },
-    date: "2025-01-21",
-  },
-  {
-    id: "22",
-    name: "Proyecto 22",
-    description: "Descripción breve del proyecto 22.",
-    coverImage: "/placeholder.svg",
-    technologies: ["Angular", "Node.js", "Redis"],
-    links: { website: "https://example22.com" },
-    date: "2025-01-22",
-  },
-  {
-    id: "23",
-    name: "Proyecto 23",
-    description: "Descripción breve del proyecto 23.",
-    coverImage: "/placeholder.svg",
-    technologies: ["PHP", "Laravel", "MySQL"],
-    links: { github: "https://github.com/example/23" },
-    date: "2025-01-23",
-  },
-  {
-    id: "24",
-    name: "Proyecto 24",
-    description: "Descripción breve del proyecto 24.",
-    coverImage: "/placeholder.svg",
-    technologies: ["Ruby", "Rails", "PostgreSQL"],
-    links: { website: "https://example24.com", github: "https://github.com/example/24" },
-    date: "2025-01-24",
-  },
-  {
-    id: "25",
-    name: "Proyecto 25",
-    description: "Descripción breve del proyecto 25.",
-    coverImage: "/placeholder.svg",
-    technologies: ["Go", "Echo", "MySQL"],
-    links: { youtube: "https://youtube.com/watch?v=example25" },
-    date: "2025-01-25",
-  },
-]
-
 // Extraemos tecnologías únicas
 function getAllTechnologies(projects: Project[]): string[] {
   const techSet = new Set<string>()
@@ -269,11 +43,10 @@ function getAllTechnologies(projects: Project[]): string[] {
 
 // Formatear fecha manual para evitar TimeZone
 function formatDate(dateString: string): string {
-  // dateString "YYYY-MM-DD"
   const [year, month, day] = dateString.split("-").map(Number)
   const months = [
     "enero", "febrero", "marzo", "abril", "mayo", "junio",
-    "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre",
+    "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
   ]
   return `${day} de ${months[month - 1]} de ${year}`
 }
@@ -284,15 +57,15 @@ export default function ProjectsPage() {
   const [selectedTech, setSelectedTech] = useState<string>("")
   const [dateFilter, setDateFilter] = useState<string>("")
 
-  // Para paginación
+  // Paginación
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 12
 
-  const allTechnologies = getAllTechnologies(projectsData)
+  const allTechnologies = getAllTechnologies(projectsData as Project[])
 
   // Filtrar y ordenar proyectos
   const filteredProjects = (() => {
-    let result = [...projectsData]
+    let result = [...(projectsData as Project[])]
 
     // Filtro por búsqueda
     if (searchTerm) {
@@ -301,7 +74,7 @@ export default function ProjectsPage() {
         (p) =>
           p.name.toLowerCase().includes(term) ||
           p.description.toLowerCase().includes(term) ||
-          p.technologies.some((t) => t.toLowerCase().includes(term)),
+          p.technologies.some((t) => t.toLowerCase().includes(term))
       )
     }
 
@@ -326,12 +99,13 @@ export default function ProjectsPage() {
 
   // Cálculo de paginación
   const totalPages = Math.ceil(filteredProjects.length / itemsPerPage)
-  // Asegura que currentPage no exceda totalPages (por si aplican filtros)
+
+  // Evitar "salir" del rango de páginas cuando se filtra
   useEffect(() => {
     if (currentPage > totalPages) setCurrentPage(1)
   }, [currentPage, totalPages])
 
-  // Slice para mostrar proyectos en la página actual
+  // Obtener proyectos a mostrar en la página
   const startIndex = (currentPage - 1) * itemsPerPage
   const endIndex = startIndex + itemsPerPage
   const displayedProjects = filteredProjects.slice(startIndex, endIndex)
@@ -402,19 +176,20 @@ export default function ProjectsPage() {
               </select>
             </div>
 
-            {/* Filtro año */}
+            {/* Filtro por año */}
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <Calendar className="h-5 w-5 text-gray-400" />
               </div>
-              {/* Obtenemos años únicos */}
               <select
                 className="pl-10 w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 py-2 px-4 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={dateFilter}
                 onChange={(e) => setDateFilter(e.target.value)}
               >
                 <option value="">Todos los años</option>
-                {Array.from(new Set(projectsData.map((p) => p.date.split("-")[0])))
+                {Array.from(
+                  new Set((projectsData as Project[]).map((p) => p.date.split("-")[0]))
+                )
                   .sort((a, b) => parseInt(b) - parseInt(a))
                   .map((year) => (
                     <option key={year} value={year}>
@@ -443,7 +218,7 @@ export default function ProjectsPage() {
           </div>
         </motion.div>
 
-        {/* Grid de Proyectos (solo los que tocan en esta página) */}
+        {/* Grid de Proyectos */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {displayedProjects.length > 0 ? (
             displayedProjects.map((project, index) => (
@@ -467,7 +242,6 @@ export default function ProjectsPage() {
                   <h3 className="text-xl font-semibold mb-2 dark:text-white">{project.name}</h3>
                   <p className="text-gray-600 dark:text-gray-300 mb-4">{project.description}</p>
 
-                  {/* Tecnologías */}
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.technologies.map((tech) => (
                       <span
@@ -479,7 +253,7 @@ export default function ProjectsPage() {
                     ))}
                   </div>
 
-                  {/* Fecha sin new Date */}
+                  {/* Fecha formateada */}
                   <div className="flex items-center text-gray-500 dark:text-gray-400 text-sm mb-4">
                     <Calendar className="h-4 w-4 mr-1" />
                     {formatDate(project.date)}
@@ -533,7 +307,7 @@ export default function ProjectsPage() {
           )}
         </div>
 
-        {/* Controles de Paginación */}
+        {/* Paginación */}
         <div className="mt-8 flex justify-center items-center gap-4">
           <button
             onClick={goToPreviousPage}
@@ -556,7 +330,7 @@ export default function ProjectsPage() {
           </button>
         </div>
 
-        {/* Botón para volver al inicio */}
+        {/* Botón "Volver al inicio" */}
         <div className="mt-12 text-center">
           <Link
             href="/"
@@ -570,4 +344,3 @@ export default function ProjectsPage() {
     </div>
   )
 }
-
