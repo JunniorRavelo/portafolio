@@ -1,7 +1,8 @@
 "use client"
 
 import Image from "next/image"
-import { Github, Linkedin, Mail, ArrowDown } from "lucide-react" // Importa solo Github
+import Link from "next/link"
+import { Github, Linkedin, Mail, ArrowDown } from "lucide-react"
 import { motion } from "framer-motion"
 
 const CodePattern = () => (
@@ -52,8 +53,34 @@ export default function Hero() {
               Ingeniero DevOps Full Stack
             </h2>
             <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto lg:mx-0">
-              Ingeniero DevOps Full Stack con experiencia en desarrollo web, automatización y gestión de servidores. Especializado en React, Node.js, Golang y bases de datos como MongoDB y PostgreSQL.
+              Ingeniero DevOps Full Stack con experiencia en desarrollo web, automatización y gestión de servidores.
+              Especializado en React, Node.js, Golang y bases de datos como MongoDB y PostgreSQL.
             </p>
+
+            {/* Botones "Más información" y "Ver proyectos" */}
+            <div className="flex flex-wrap justify-center lg:justify-start gap-4 mb-8">
+              <motion.button
+                onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
+                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Más información
+                <ArrowDown className="w-4 h-4" />
+              </motion.button>
+
+              <Link href="/projects">
+                <motion.button
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Ver proyectos
+                </motion.button>
+              </Link>
+            </div>
+
+            {/* Redes sociales */}
             <div className="flex justify-center lg:justify-start space-x-4 mb-8">
               <a
                 href="https://github.com/JunniorRavelo"
@@ -77,15 +104,6 @@ export default function Hero() {
                 <Mail className="w-6 h-6 text-gray-700 dark:text-gray-300" />
               </a>
             </div>
-            <motion.button
-              onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Más información
-              <ArrowDown className="w-4 h-4" />
-            </motion.button>
           </motion.div>
 
           <motion.div
@@ -112,7 +130,6 @@ export default function Hero() {
               </div>
             </div>
           </motion.div>
-
         </div>
       </div>
 
