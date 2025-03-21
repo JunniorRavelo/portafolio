@@ -1,8 +1,10 @@
-// app/projects/ProjectsClient.tsx (Componente Cliente)
-"use client"
+// app/projects/ProjectsClient.tsx (Cliente)
+"use client";
 
 import { useState, useEffect, useMemo } from "react";
+// Import framer-motion de forma parcial (ya lo haces, pero evita cargar todo el bundle)
 import { motion } from "framer-motion";
+// Si los íconos Lucide se usan poco, considera importarlos individualmente
 import {
   Search,
   Calendar,
@@ -35,7 +37,7 @@ function formatDate(dateString: string): string {
   const [year, month, day] = dateString.split("T")[0].split("-").map(Number);
   const months = [
     "enero", "febrero", "marzo", "abril", "mayo", "junio",
-    "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
+    "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre",
   ];
   return `${day} de ${months[month - 1]} de ${year}`;
 }
@@ -54,8 +56,7 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
   const itemsPerPage = 12;
 
   const allTechnologies = useMemo(
-    () =>
-      Array.from(new Set(projectsData.flatMap((p) => p.technologies))).sort(),
+    () => Array.from(new Set(projectsData.flatMap((p) => p.technologies))).sort(),
     [projectsData]
   );
 
@@ -90,6 +91,7 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
   }, [projectsData, searchTerm, selectedTech, dateFilter, sortDirection]);
 
   const totalPages = Math.ceil(filteredProjects.length / itemsPerPage);
+
   useEffect(() => {
     if (currentPage > totalPages) setCurrentPage(1);
   }, [currentPage, totalPages]);
@@ -98,16 +100,17 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
   const endIndex = startIndex + itemsPerPage;
   const displayedProjects = filteredProjects.slice(startIndex, endIndex);
 
-  const toggleSortDirection = () => {
+  const toggleSortDirection = () =>
     setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"));
-  };
 
   const goToPreviousPage = () => {
     if (currentPage > 1) setCurrentPage((prev) => prev - 1);
   };
 
   const goToNextPage = () => {
-    if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
+    if (currentPage < totalPages || totalPages === 0) {
+      setCurrentPage((prev) => prev + 1);
+    }
   };
 
   return (
@@ -214,20 +217,26 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <div className="relative h-48 w-full">
+                {/* Reservamos espacio para evitar CLS */}
+                <div className="relative w-full aspect-[16/9]">
                   <Image
                     src={project.coverImage || "/placeholder.svg"}
                     alt={project.name}
                     fill
                     className="object-cover"
-                    // Agrega priority al primer proyecto (o el que consideres LCP)
+                    // Solo el primer proyecto en la primera página con prioridad (LCP)
                     priority={index === 0 && currentPage === 1}
+                    sizes="(max-width: 768px) 100vw,
+                          (max-width: 1200px) 50vw,
+                          33vw"
                   />
                 </div>
 
                 <div className="p-6">
                   <h3 className="text-xl font-semibold mb-2 dark:text-white">{project.name}</h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">{project.description}</p>
+                  <p className="text-gray-600 dark:text-gray-300 mb-4">
+                    {project.description}
+                  </p>
 
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.technologies.map((tech) => (
@@ -301,11 +310,9 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
           >
             Anterior
           </button>
-
           <span className="text-gray-700 dark:text-gray-200">
             Página {currentPage} de {totalPages}
           </span>
-
           <button
             onClick={goToNextPage}
             disabled={currentPage === totalPages || totalPages === 0}
@@ -324,6 +331,7 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
           </Link>
         </div>
       </div>
+
       <Footer />
     </div>
   );

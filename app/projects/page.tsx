@@ -1,5 +1,7 @@
 // app/projects/page.tsx (Server Component)
-import ProjectsClient from ".//ProjectsClient";
+export const revalidate = 60 * 60 * 24 * 7; // ISR (revalida cada 7 días)
+
+import ProjectsClient from "./ProjectsClient";
 
 type Repo = {
   id: number;
@@ -16,6 +18,7 @@ function transformRepos(repos: Repo[]) {
     id: repo.id.toString(),
     name: repo.name,
     description: repo.description || "Sin descripción",
+    // Usa nombres consistentes o revisa en tu repo real
     coverImage: `/projects/${repo.name}.webp`,
     technologies: repo.topics || [],
     links: {
@@ -28,7 +31,7 @@ function transformRepos(repos: Repo[]) {
 
 export default async function ProjectsPage() {
   const token = process.env.MY_GITHUB_TOKEN;
-  if (!token) throw new Error("Falta el token de GitHub en variables de entorno.");
+  if (!token) throw new Error("Falta MY_GITHUB_TOKEN en variables de entorno.");
 
   const res = await fetch("https://api.github.com/user/repos?visibility=public", {
     headers: {
@@ -36,8 +39,8 @@ export default async function ProjectsPage() {
       Accept: "application/vnd.github.v3+json",
       "User-Agent": "Next.js",
     },
-    // Revalida cada 7 días
-    next: { revalidate: 60 * 60 * 24 * 7 },
+    // Aquí aprovechamos ISR con revalidate arriba
+    next: { revalidate },
   });
 
   if (!res.ok) throw new Error("Error al obtener repositorios");
