@@ -16,10 +16,6 @@ import Image from "next/image"
 import Link from "next/link"
 import Footer from "../components/Footer"
 
-// Importa el array de proyectos desde el JSON
-import projectsData from "../data/projects.json" // ajusta la ruta según tu estructura
-
-// Definimos el tipo Project (opcional pero recomendado)
 type Project = {
   id: string
   name: string
@@ -31,43 +27,69 @@ type Project = {
     github?: string
     youtube?: string
   }
-  date: string // Formato "YYYY-MM-DD"
+  date: string
 }
 
-// Extraemos tecnologías únicas
-function getAllTechnologies(projects: Project[]): string[] {
-  const techSet = new Set<string>()
-  projects.forEach((p) => p.technologies.forEach((tech) => techSet.add(tech)))
-  return Array.from(techSet).sort()
-}
-
-// Formatear fecha manual para evitar TimeZone
 function formatDate(dateString: string): string {
-  const [year, month, day] = dateString.split("-").map(Number)
+  const [year, month, day] = dateString.split("T")[0].split("-").map(Number)
   const months = [
-    "enero", "febrero", "marzo", "abril", "mayo", "junio",
-    "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
+    "enero","febrero","marzo","abril","mayo","junio",
+    "julio","agosto","septiembre","octubre","noviembre","diciembre"
   ]
   return `${day} de ${months[month - 1]} de ${year}`
 }
 
 export default function ProjectsPage() {
+  const [projectsData, setProjectsData] = useState<Project[]>([])
+
   const [searchTerm, setSearchTerm] = useState("")
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc")
   const [selectedTech, setSelectedTech] = useState<string>("")
   const [dateFilter, setDateFilter] = useState<string>("")
 
-  // Paginación
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 12
 
-  const allTechnologies = getAllTechnologies(projectsData as Project[])
+  useEffect(() => {
+    const fetchReposFromApi = async () => {
+      try {
+        const res = await fetch("/api/projects", { method: "GET" })
+        if (!res.ok) {
+          console.error("Error al obtener repositorios:", res.statusText)
+          return
+        }
 
-  // Filtrar y ordenar proyectos
+        const repos = await res.json()
+
+        const transformed = repos.map((repo: any) => ({
+          id: repo.id.toString(),
+          name: repo.name,
+          description: repo.description || "Sin descripción",
+          coverImage: `/projects/${repo.name}.svg`, // Ajusta si no tienes esos SVG
+          technologies: repo.topics || [],
+          links: {
+            website: repo.homepage,
+            github: repo.html_url,
+          },
+          date: repo.created_at,
+        })) as Project[]
+
+        setProjectsData(transformed)
+      } catch (error) {
+        console.error("Error general:", error)
+      }
+    }
+
+    fetchReposFromApi()
+  }, [])
+
+  const allTechnologies = Array.from(
+    new Set(projectsData.flatMap((p) => p.technologies))
+  ).sort()
+
   const filteredProjects = (() => {
-    let result = [...(projectsData as Project[])]
+    let result = [...projectsData]
 
-    // Filtro por búsqueda
     if (searchTerm) {
       const term = searchTerm.toLowerCase()
       result = result.filter(
@@ -78,17 +100,14 @@ export default function ProjectsPage() {
       )
     }
 
-    // Filtro por tecnología
     if (selectedTech) {
       result = result.filter((p) => p.technologies.includes(selectedTech))
     }
 
-    // Filtro por año
     if (dateFilter) {
       result = result.filter((p) => p.date.split("-")[0] === dateFilter)
     }
 
-    // Orden A-Z / Z-A
     result.sort((a, b) => {
       if (sortDirection === "asc") return a.name.localeCompare(b.name)
       return b.name.localeCompare(a.name)
@@ -97,25 +116,18 @@ export default function ProjectsPage() {
     return result
   })()
 
-  // Cálculo de paginación
   const totalPages = Math.ceil(filteredProjects.length / itemsPerPage)
-
-  // Evitar "salir" del rango de páginas cuando se filtra
   useEffect(() => {
     if (currentPage > totalPages) setCurrentPage(1)
   }, [currentPage, totalPages])
 
-  // Obtener proyectos a mostrar en la página
   const startIndex = (currentPage - 1) * itemsPerPage
   const endIndex = startIndex + itemsPerPage
   const displayedProjects = filteredProjects.slice(startIndex, endIndex)
 
-  // Alternar orden
   const toggleSortDirection = () => {
     setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"))
   }
-
-  // Funciones de paginación
   const goToPreviousPage = () => {
     if (currentPage > 1) setCurrentPage((prev) => prev - 1)
   }
@@ -187,9 +199,7 @@ export default function ProjectsPage() {
                 onChange={(e) => setDateFilter(e.target.value)}
               >
                 <option value="">Todos los años</option>
-                {Array.from(
-                  new Set((projectsData as Project[]).map((p) => p.date.split("-")[0]))
-                )
+                {Array.from(new Set(projectsData.map((p) => p.date.split("-")[0])))
                   .sort((a, b) => parseInt(b) - parseInt(a))
                   .map((year) => (
                     <option key={year} value={year}>
@@ -253,13 +263,11 @@ export default function ProjectsPage() {
                     ))}
                   </div>
 
-                  {/* Fecha formateada */}
                   <div className="flex items-center text-gray-500 dark:text-gray-400 text-sm mb-4">
                     <Calendar className="h-4 w-4 mr-1" />
                     {formatDate(project.date)}
                   </div>
 
-                  {/* Enlaces */}
                   <div className="flex gap-3">
                     {project.links.website && (
                       <Link
@@ -330,7 +338,6 @@ export default function ProjectsPage() {
           </button>
         </div>
 
-        {/* Botón "Volver al inicio" */}
         <div className="mt-12 text-center">
           <Link
             href="/"
