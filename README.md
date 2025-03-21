@@ -1,36 +1,27 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js Project
 
-## Getting Started
+This project is built with Next.js and comes preconfigured with a Dockerfile and a GitHub Actions workflow for CI/CD.
 
-First, run the development server:
+## Project Contents
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Dockerfile**: Included for building a production-ready Docker image.
+- **.env.example**: Provided as a template. Copy it to create your own `.env.local` file and configure your environment variables.
+- **GitHub Actions Workflow**: A workflow YAML file is already set up under `.github/workflows/ci.yml` to automate testing and building on pushes and pull requests.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Copy the `.env.example` file to `.env.local` and fill in your environment-specific variables.
+2. Install the project dependencies and start the development server using the standard Next.js commands.
+3. If using Docker, build the image and run the container as outlined in the Dockerfile.
+4. The GitHub Actions workflow will automatically run on pushes and pull requests to the main branch.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Requirements
 
-## Learn More
+- Docker (if you plan to use containerization)
+- Node.js
+- A GitHub account for utilizing GitHub Actions
 
-To learn more about Next.js, take a look at the following resources:
+## Notes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Do not commit your `.env.local` file to version control.
+- Customize the configurations as needed to suit your project's requirements.
