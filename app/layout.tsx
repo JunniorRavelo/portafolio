@@ -8,7 +8,7 @@ import Script from "next/script"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "DevOps | JSRavelo",
+  title: "J. Santiago Ravelo",
   description: "Portfolio de J. Santiago Ravelo, ingeniero DevOps Full Stack especializado en tecnologías web modernas.",
 }
 
