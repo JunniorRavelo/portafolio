@@ -66,7 +66,7 @@ export default function ProjectsPage() {
           id: repo.id.toString(),
           name: repo.name,
           description: repo.description || "Sin descripción",
-          coverImage: `/projects/${repo.name}.svg`, // Ajusta si no tienes esos SVG
+          coverImage: `/projects/${repo.name}.webp`, // Ajusta si no tienes esos SVG
           technologies: repo.topics || [],
           links: {
             website: repo.homepage,
