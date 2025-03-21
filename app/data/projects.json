@@ -1,34 +1,34 @@
 [
     {
         "id": "1",
-        "name": "Proyecto 1",
-        "description": "Descripción breve del proyecto 1.",
-        "coverImage": "/placeholder.svg",
+        "name": "GitHub Profile",
+        "description": "Perfil de GitHub.",
+        "coverImage": "/projects/JunnioRavelo.svg",
         "technologies": [
             "React",
             "TypeScript",
             "Tailwind CSS"
         ],
         "links": {
-            "website": "https://example.com",
-            "github": "https://github.com/example/1"
+            "website": "https://github.com/JunniorRavelo",
+            "github": "https://github.com/JunniorRavelo/JunniorRavelo"
         },
-        "date": "2025-01-01"
+        "date": "2023-01-01"
     },
     {
         "id": "2",
-        "name": "Proyecto 2",
+        "name": "Analizador de contraseñas",
         "description": "Descripción breve del proyecto 2.",
-        "coverImage": "/placeholder.svg",
+        "coverImage": "/projects/password-analyzer.svg",
         "technologies": [
             "Next.js",
             "Prisma",
             "PostgreSQL"
         ],
         "links": {
-            "github": "https://github.com/example/2"
+            "github": "https://github.com/JunniorRavelo/password-analyzer"
         },
-        "date": "2025-01-02"
+        "date": "2024-11-15"
     },
     {
         "id": "3",
