@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 
 export async function GET() {
   try {
-    const token = process.env.GITHUB_TOKEN
+    const token = process.env.MY_GITHUB_TOKEN
     if (!token) {
       return NextResponse.json(
         { error: "Falta el token de GitHub en variables de entorno." },

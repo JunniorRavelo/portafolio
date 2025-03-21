@@ -18,7 +18,7 @@ jobs:
       SMTP_FROM: ${{ secrets.SMTP_FROM }}
       SMTP_TO: ${{ secrets.SMTP_TO }}
 
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      MY_GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
     steps:
       - name: Checkout del código
         uses: actions/checkout@v4
@@ -41,5 +41,5 @@ jobs:
             -e SMTP_PASS=${SMTP_PASS} \
             -e SMTP_FROM=${SMTP_FROM} \
             -e SMTP_TO=${SMTP_TO} \
-            -e GITHUB_TOKEN=${GITHUB_TOKEN} \
+            -e MY_GITHUB_TOKEN=${MY_GITHUB_TOKEN} \
             my-image-name:latest
