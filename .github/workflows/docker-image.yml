@@ -17,14 +17,19 @@ jobs:
       SMTP_PASS: ${{ secrets.SMTP_PASS }}
       SMTP_FROM: ${{ secrets.SMTP_FROM }}
       SMTP_TO: ${{ secrets.SMTP_TO }}
-
       MY_GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+
     steps:
       - name: Checkout del código
         uses: actions/checkout@v4
 
       - name: Construir imagen Docker
-        run: docker build -t my-image-name:latest -f Dockerfile .
+        run: |
+          docker build \
+            -t my-image-name:latest \
+            -f Dockerfile \
+            --build-arg MY_GITHUB_TOKEN=${{ secrets.MY_GITHUB_TOKEN }} \
+            .
 
       - name: Detener contenedor anterior (si existe)
         run: |
