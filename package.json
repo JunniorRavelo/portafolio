@@ -6,7 +6,7 @@
     "url": "https://jsravelo.com",
     "github": "https://github.com/JunniorRavelo"
   },
-  "version": "3.0.1",
+  "version": "3.0.2",
   "private": true,
   "scripts": {
     "dev": "next dev",
