@@ -57,7 +57,8 @@ export default function RootLayout({
             },
             "sameAs": [
               "https://www.linkedin.com/in/jsravelo/",
-              "https://github.com/JunniorRavelo"
+              "https://github.com/JunniorRavelo",
+              "https://maps.app.goo.gl/V9MtUSsHRhWUg8PK6"
             ]
           }
         `}
