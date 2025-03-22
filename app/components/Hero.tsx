@@ -53,7 +53,7 @@ export default function Hero() {
               Ingeniero DevOps Full Stack
             </h2>
             <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto lg:mx-0">
-              Ingeniero DevOps Full Stack en Cúcuta, Colombia, con amplia experiencia en desarrollo web, automatización y gestión de servidores. Especializado en tecnologías como React, Node.js, Golang y bases de datos (MongoDB y PostgreSQL), ofrezco soluciones digitales innovadoras para empresas a nivel nacional e internacional.
+              Estudiante de ultimos semestres de Ingeniería de Sistema en Cúcuta, Colombia, con amplia experiencia en desarrollo web, automatización y gestión de servidores. Especializado en tecnologías como React, Node.js, Golang y bases de datos (MongoDB y PostgreSQL), ofrezco soluciones digitales innovadoras para empresas a nivel nacional e internacional.
             </p>
 
 

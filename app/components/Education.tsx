@@ -16,6 +16,16 @@ export default function Education() {
         "Miembro IEEE",
       ],
     },
+    {
+      degree: "Técnico en Mantenimiento de Equipos de Cómputo",
+      institution: "Sin Frontera",
+      period: "2020 – 2020",
+      achievements: [
+        "Reparación y mantenimiento de celulares",
+        "Reparación y mantenimiento de computadoras",
+        "Reparación y mantenimiento de impresoras",
+      ],
+    }
   ]
 
   return (
@@ -25,7 +35,7 @@ export default function Education() {
     >
       <div className="container mx-auto px-6 relative z-10">
         <AnimatedSectionHeader title="Educación" />
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-3xl mx-auto space-y-8">
           {education.map((edu, index) => (
             <motion.div
               key={index}
