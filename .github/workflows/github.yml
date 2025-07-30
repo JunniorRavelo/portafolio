@@ -23,17 +23,13 @@ jobs:
       - name: Checkout del código
         uses: actions/checkout@v4
 
-      # 2. Sincroniza los archivos al directorio de despliegue.
-      # `rsync` es eficiente y `--delete` asegura que el directorio de destino
-      # sea un reflejo exacto del repositorio.
+      # 2. Sincroniza los archivos al directorio de despliegue
       - name: Sincronizar archivos al directorio de despliegue
         run: |
           mkdir -p ${{ env.DEPLOY_DIR }}
           rsync -av --delete ./ ${{ env.DEPLOY_DIR }}/
 
-      # 3. Crea un archivo .env en el directorio de despliegue con los secretos.
-      # La aplicación los leerá con `dotenv`. Esto es útil para secretos que no quieres
-      # incluir en el `ecosystem.config.js`.
+      # 3. Crea un archivo .env en el directorio de despliegue con los secretos
       - name: Crear archivo .env
         run: |
           echo "NODE_ENV=production" > ${{ env.DEPLOY_DIR }}/.env
@@ -46,21 +42,24 @@ jobs:
           echo "SMTP_TO=${{ secrets.SMTP_TO }}" >> ${{ env.DEPLOY_DIR }}/.env
           echo "MY_GITHUB_TOKEN=${{ secrets.MY_GITHUB_TOKEN }}" >> ${{ env.DEPLOY_DIR }}/.env
 
-      # 4. Instala las dependencias de npm y construye el proyecto.
-      # Se ejecuta directamente en el directorio de despliegue.
+      # 4. Configura Node.js para que los comandos de npm estén disponibles
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22' # O la versión que necesites, ej: 'lts/*'
+
+      # 5. Instala las dependencias y construye el proyecto
       - name: Instalar dependencias y construir proyecto
         run: |
           cd ${{ env.DEPLOY_DIR }}
           npm install
           npm run build
 
-      # 5. Inicia o reinicia la aplicación usando el ecosystem file.
-      # `pm2 startOrRestart` es el comando ideal: reinicia la app si ya corre,
-      # o la inicia si es la primera vez.
-      # `pm2 save` guarda la lista de procesos para que se reinicien automáticamente
-      # si el servidor se reinicia.
+      # 6. Inicia o reinicia la aplicación usando PM2
       - name: Iniciar o reiniciar aplicación con PM2
         run: |
           cd ${{ env.DEPLOY_DIR }}
-          pm2 startOrRestart ecosystem.config.js
-          pm2 save
+          # Usar 'npx' es más robusto ya que utiliza la versión de PM2 del proyecto
+          # o la última disponible, evitando problemas con el PATH del runner.
+          npx pm2 startOrRestart ecosystem.config.js
+          npx pm2 save
