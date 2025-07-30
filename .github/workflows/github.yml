@@ -1,0 +1,66 @@
+# Nombre del workflow
+name: Desplegar en Servidor con PM2 y Ecosystem File
+
+# Disparadores: se ejecuta en cada push o pull request a la rama main
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# Trabajos a ejecutar
+jobs:
+  build-and-deploy:
+    # Se ejecuta en tu propio servidor (self-hosted runner)
+    runs-on: self-hosted
+    
+    # Define el directorio de despliegue para fácil referencia
+    env:
+      DEPLOY_DIR: /var/www/jsravelo
+
+    steps:
+      # 1. Descarga el código más reciente del repositorio
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      # 2. Sincroniza los archivos al directorio de despliegue.
+      # `rsync` es eficiente y `--delete` asegura que el directorio de destino
+      # sea un reflejo exacto del repositorio.
+      - name: Sincronizar archivos al directorio de despliegue
+        run: |
+          mkdir -p ${{ env.DEPLOY_DIR }}
+          rsync -av --delete ./ ${{ env.DEPLOY_DIR }}/
+
+      # 3. Crea un archivo .env en el directorio de despliegue con los secretos.
+      # La aplicación los leerá con `dotenv`. Esto es útil para secretos que no quieres
+      # incluir en el `ecosystem.config.js`.
+      - name: Crear archivo .env
+        run: |
+          echo "NODE_ENV=production" > ${{ env.DEPLOY_DIR }}/.env
+          echo "SMTP_HOST=${{ secrets.SMTP_HOST }}" >> ${{ env.DEPLOY_DIR }}/.env
+          echo "SMTP_PORT=${{ secrets.SMTP_PORT }}" >> ${{ env.DEPLOY_DIR }}/.env
+          echo "SMTP_SECURE=${{ secrets.SMTP_SECURE }}" >> ${{ env.DEPLOY_DIR }}/.env
+          echo "SMTP_USER=${{ secrets.SMTP_USER }}" >> ${{ env.DEPLOY_DIR }}/.env
+          echo "SMTP_PASS=${{ secrets.SMTP_PASS }}" >> ${{ env.DEPLOY_DIR }}/.env
+          echo "SMTP_FROM=${{ secrets.SMTP_FROM }}" >> ${{ env.DEPLOY_DIR }}/.env
+          echo "SMTP_TO=${{ secrets.SMTP_TO }}" >> ${{ env.DEPLOY_DIR }}/.env
+          echo "MY_GITHUB_TOKEN=${{ secrets.MY_GITHUB_TOKEN }}" >> ${{ env.DEPLOY_DIR }}/.env
+
+      # 4. Instala las dependencias de npm y construye el proyecto.
+      # Se ejecuta directamente en el directorio de despliegue.
+      - name: Instalar dependencias y construir proyecto
+        run: |
+          cd ${{ env.DEPLOY_DIR }}
+          npm install
+          npm run build
+
+      # 5. Inicia o reinicia la aplicación usando el ecosystem file.
+      # `pm2 startOrRestart` es el comando ideal: reinicia la app si ya corre,
+      # o la inicia si es la primera vez.
+      # `pm2 save` guarda la lista de procesos para que se reinicien automáticamente
+      # si el servidor se reinicia.
+      - name: Iniciar o reiniciar aplicación con PM2
+        run: |
+          cd ${{ env.DEPLOY_DIR }}
+          pm2 startOrRestart ecosystem.config.js
+          pm2 save
