@@ -119,7 +119,8 @@ export default function Hero() {
               {/* Contenedor para la imagen */}
               <div className="relative rounded-2xl overflow-hidden shadow-2xl w-full h-full">
                 <Image
-                  src="/images/profile.webp"
+                  //src="/images/profile.webp"
+                  src="/images/image.png"
                   alt="Junnior Santiago Ravelo Velasco"
                   fill
                   className="object-cover"
