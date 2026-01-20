@@ -1,35 +1,29 @@
-name: Despliegue de Portafolio Next.js
+name: Despliegue de Portafolio
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - production  # Solo se activa cuando haces merge o push a production
 
 jobs:
   build-and-deploy:
     runs-on: self-hosted
+    # Añadimos un entorno para mayor seguridad
+    environment: production 
     
     steps:
-      # 1. Descarga el código
       - name: Checkout del código
         uses: actions/checkout@v4
 
-      # 2. Construir la imagen de Docker
-      # Aquí es donde ocurre el 'npm run build' dentro del contenedor
       - name: Construir imagen Docker
         run: |
           docker build -t portafolio-nextjs:latest .
 
-      # 3. Detener y eliminar el contenedor anterior (si existe)
-      # El '|| true' evita que el workflow falle si es la primera vez que se corre
       - name: Limpiar contenedor anterior
         run: |
           docker stop portafolio-app || true
           docker rm portafolio-app || true
 
-      # 4. Ejecutar el nuevo contenedor
-      # Pasamos los secretos como variables de entorno directamente al contenedor
       - name: Iniciar contenedor Docker
         run: |
           docker run -d \
@@ -47,6 +41,5 @@ jobs:
             -e MY_GITHUB_TOKEN="${{ secrets.MY_GITHUB_TOKEN }}" \
             portafolio-nextjs:latest
 
-      # 5. Limpieza de imágenes huérfanas (opcional pero recomendado)
       - name: Eliminar imágenes antiguas
         run: docker image prune -f
