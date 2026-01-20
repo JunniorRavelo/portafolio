@@ -1,15 +1,15 @@
-name: Despliegue de Portafolio
+name: Despliegue de Portafolio Next.js
 
 on:
   push:
     branches:
-      - production  # Solo se activa cuando haces merge o push a production
+      - production
 
 jobs:
   build-and-deploy:
     runs-on: self-hosted
-    # Añadimos un entorno para mayor seguridad
-    environment: production 
+    environment:
+      name: production
     
     steps:
       - name: Checkout del código
@@ -17,29 +17,44 @@ jobs:
 
       - name: Construir imagen Docker
         run: |
-          docker build -t portafolio-nextjs:latest .
+          # Usamos el SHA del commit para evitar conflictos de caché y permitir rollbacks
+          docker build -t portafolio-nextjs:${{ github.sha }} .
+          docker tag portafolio-nextjs:${{ github.sha }} portafolio-nextjs:latest
 
-      - name: Limpiar contenedor anterior
+      - name: Detener y eliminar contenedor anterior
         run: |
           docker stop portafolio-app || true
           docker rm portafolio-app || true
 
       - name: Iniciar contenedor Docker
+        # Mapeamos los secretos a variables de entorno del shell para mayor seguridad con caracteres especiales
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_SECURE: ${{ secrets.SMTP_SECURE }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          SMTP_FROM: ${{ secrets.SMTP_FROM }}
+          SMTP_TO: ${{ secrets.SMTP_TO }}
+          MY_GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
         run: |
           docker run -d \
             --name portafolio-app \
-            -p 3000:3000 \
+            --network web_network \
             --restart always \
+            -p 127.0.0.1:3000:3000 \
             -e NODE_ENV=production \
-            -e SMTP_HOST="${{ secrets.SMTP_HOST }}" \
-            -e SMTP_PORT="${{ secrets.SMTP_PORT }}" \
-            -e SMTP_SECURE="${{ secrets.SMTP_SECURE }}" \
-            -e SMTP_USER="${{ secrets.SMTP_USER }}" \
-            -e SMTP_PASS="${{ secrets.SMTP_PASS }}" \
-            -e SMTP_FROM="${{ secrets.SMTP_FROM }}" \
-            -e SMTP_TO="${{ secrets.SMTP_TO }}" \
-            -e MY_GITHUB_TOKEN="${{ secrets.MY_GITHUB_TOKEN }}" \
-            portafolio-nextjs:latest
+            -e HOSTNAME="0.0.0.0" \
+            -e SMTP_HOST="$SMTP_HOST" \
+            -e SMTP_PORT="$SMTP_PORT" \
+            -e SMTP_SECURE="$SMTP_SECURE" \
+            -e SMTP_USER="$SMTP_USER" \
+            -e SMTP_PASS="$SMTP_PASS" \
+            -e SMTP_FROM="$SMTP_FROM" \
+            -e SMTP_TO="$SMTP_TO" \
+            -e MY_GITHUB_TOKEN="$MY_GITHUB_TOKEN" \
+            portafolio-nextjs:${{ github.sha }}
 
-      - name: Eliminar imágenes antiguas
-        run: docker image prune -f
+      - name: Limpiar imágenes antiguas e innecesarias
+        run: |
+          docker image prune -f
