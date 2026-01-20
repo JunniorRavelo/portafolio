@@ -11,13 +11,9 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# --- SOLUCIÓN AL ERROR DE PRERENDER ---
-# Definimos el argumento de construcción
 ARG MY_GITHUB_TOKEN
-# Lo exportamos como variable de entorno para que 'npm run build' pueda usarlo
 ENV MY_GITHUB_TOKEN=$MY_GITHUB_TOKEN
 
-# Desactivar telemetría de Next.js durante el build (Sintaxis corregida)
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 
@@ -33,14 +29,11 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Copiar archivos necesarios desde la etapa de construcción
 COPY --from=builder /app/public ./public
 
-# Setear permisos para la cache de Next
 RUN mkdir .next
 RUN chown nextjs:nodejs .next
 
-# Copiar el output standalone
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 

@@ -1,4 +1,4 @@
-name: Despliegue de Portafolio Next.js
+name: Desploy
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: portafolioWeb
+    runs-on: portafolioWeb 
     environment:
       name: production
     
@@ -17,8 +17,11 @@ jobs:
 
       - name: Construir imagen Docker
         run: |
-          # Usamos el SHA del commit para evitar conflictos de caché y permitir rollbacks
-          docker build -t portafolio-nextjs:${{ github.sha }} .
+          # PASO CRÍTICO: Enviamos el token como --build-arg
+          docker build \
+            --build-arg MY_GITHUB_TOKEN="${{ secrets.MY_GITHUB_TOKEN }}" \
+            -t portafolio-nextjs:${{ github.sha }} .
+          
           docker tag portafolio-nextjs:${{ github.sha }} portafolio-nextjs:latest
 
       - name: Detener y eliminar contenedor anterior
@@ -27,7 +30,6 @@ jobs:
           docker rm portafolio-app || true
 
       - name: Iniciar contenedor Docker
-        # Mapeamos los secretos a variables de entorno del shell para mayor seguridad con caracteres especiales
         env:
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
           SMTP_PORT: ${{ secrets.SMTP_PORT }}
@@ -55,6 +57,6 @@ jobs:
             -e MY_GITHUB_TOKEN="$MY_GITHUB_TOKEN" \
             portafolio-nextjs:${{ github.sha }}
 
-      - name: Limpiar imágenes antiguas e innecesarias
+      - name: Limpiar imágenes antiguas
         run: |
           docker image prune -f
