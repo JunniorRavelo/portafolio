@@ -1,5 +1,8 @@
-// next.config.js
+/** @type {import('next').NextConfig} */
 const nextConfig = {
+  // 1. Activamos la optimización para Docker
+  output: 'standalone', 
+  
   poweredByHeader: false,
   async headers() {
     return [
