@@ -1,4 +1,4 @@
-name: Desploy
+name: Deploy
 
 on:
   push:
@@ -17,17 +17,17 @@ jobs:
 
       - name: Construir imagen Docker
         run: |
-          # PASO CRÍTICO: Enviamos el token como --build-arg
           docker build \
             --build-arg MY_GITHUB_TOKEN="${{ secrets.MY_GITHUB_TOKEN }}" \
             -t portafolio-nextjs:${{ github.sha }} .
           
+          # Etiquetamos también como latest por buena práctica
           docker tag portafolio-nextjs:${{ github.sha }} portafolio-nextjs:latest
 
       - name: Detener y eliminar contenedor anterior
         run: |
-          docker stop portafolio-app || true
-          docker rm portafolio-app || true
+          # El flag -f (force) detiene y elimina en un solo paso y no falla si no existe
+          docker rm -f portafolio-app || true
 
       - name: Iniciar contenedor Docker
         env:
@@ -44,7 +44,7 @@ jobs:
             --name portafolio-app \
             --network web_network \
             --restart always \
-            -p 127.0.0.1:3000:3000 \
+            -p 127.0.0.1:3001:3000 \
             -e NODE_ENV=production \
             -e HOSTNAME="0.0.0.0" \
             -e SMTP_HOST="$SMTP_HOST" \
@@ -59,4 +59,5 @@ jobs:
 
       - name: Limpiar imágenes antiguas
         run: |
+          # Elimina imágenes que quedaron sin nombre (dangling) para ahorrar espacio
           docker image prune -f
