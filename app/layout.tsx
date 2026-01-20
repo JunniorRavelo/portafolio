@@ -47,7 +47,7 @@ export default function RootLayout({
             "@context": "https://schema.org",
             "@type": "Person",
             "name": "Junnior Santiago Ravelo Velasco",
-            "url": "https://jsravelo.com",
+            "url": "https://ceo.misistema.com.co",
             "address": {
               "@type": "PostalAddress",
               "postalCode": "540011",

@@ -3,10 +3,10 @@
   "author": {
     "name": "Junnior Santiago Ravelo Velasco",
     "email": "JSantiagoRavelo@gmail.com",
-    "url": "https://jsravelo.com",
+    "url": "https://ceo.misistema.com.co",
     "github": "https://github.com/JunniorRavelo"
   },
-  "version": "3.0.2",
+  "version": "5.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
