@@ -1,0 +1,9 @@
+node_modules
+.next
+.git
+dist
+build
+out
+.DS_Store
+*.log
+ecosystem.config.js
